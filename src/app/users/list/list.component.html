@@ -1,0 +1,124 @@
+<h4 class="font-weight-bold py-3 mb-4">
+    Users
+    <button routerLink="create" type="button" class="btn btn-round btn-outline-primary float-right">Add User</button>
+
+</h4>
+
+<div class="card">
+
+    <!-- Table controls -->
+    <div class="card-body">
+
+        <div class="row">
+            <div class="col">
+                Per page: &nbsp;
+                <select
+                        [(ngModel)]="perPage"
+                        (change)="update()"
+                        class="custom-select custom-select-sm d-inline-block w-auto">
+                    <option *ngFor="let limit of [10, 20, 30, 40, 50]">{{limit}}</option>
+                </select>
+            </div>
+            <div class="col">
+                <input type="text"
+                       [(ngModel)]="filterVal"
+                       (input)="currentPage = 1; update()"
+                       class="form-control form-control-sm d-inline-block w-auto float-sm-right"
+                       placeholder="Search...">
+            </div>
+        </div>
+
+    </div>
+    <!-- / Table controls -->
+
+    <!-- Table -->
+    <hr class="border-light m-0">
+    <div class="table-responsive">
+        <table class="table card-table">
+            <thead>
+            <tr>
+                <th class="text-nowrap cursor-pointer">
+                    #
+                </th>
+                <th class="text-nowrap cursor-pointer" (click)="setSort('username')">
+                    Username<i class="ion text-muted ml-2" *ngIf="sortBy=='username'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+                </th>
+                <th class="text-nowrap cursor-pointer" (click)="setSort('email')">
+                    Email<i class="ion text-muted ml-2" *ngIf="sortBy=='email'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+                </th>
+                <th class="text-nowrap cursor-pointer" (click)="setSort('fullname')">
+                    Name<i class="ion text-muted ml-2" *ngIf="sortBy=='fullname'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+                </th>
+                <th class="text-nowrap cursor-pointer"  (click)="setSort('role.name')">
+                    Role<i class="ion text-muted ml-2" *ngIf="sortBy=='role.name'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+                </th>
+                <th class="text-nowrap cursor-pointer" (click)="setSort('status')">
+                    Status<i class="ion text-muted ml-2" *ngIf="sortBy=='status'" [ngClass]="'ion-md-arrow-' + (sortDesc ? 'down' : 'up')"></i>
+                </th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngIf="usersData.length == 0">
+                <td colspan="6" class="text-center">loading...</td>
+            </tr>
+            <tr *ngFor="let user of usersData; let i = index">
+                <td class="align-middle">{{ i + 1 }}</td>
+                <td class="align-middle"><a href="javascript:void(0)">{{user.username}}</a></td>
+                <td class="align-middle">{{user.email}}</td>
+                <td class="align-middle">{{user.fullname}}</td>
+                <td class="align-middle">
+                    <span *ngIf="user.role == null"><label class="label label-danger"> No Role</label></span>
+                    <span *ngIf="user.role != null">{{user.role.name}}</span>
+
+                </td>
+                <td class="align-middle">
+                    <span class="badge badge-outline-success" *ngIf="user.enabled">Active</span>
+                    <span class="badge badge-outline-danger" *ngIf="!user.enabled">Banned</span>
+                    <!--<span class="badge badge-outline-default" *ngIf="user.status === 3">Deleted</span>-->
+                </td>
+                <td class="text-center text-nowrap align-middle">
+                    <a routerLink="edit/{{user.id}}" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Edit">
+                        <i class="ion ion-md-create"></i>
+                    </a>
+                    <span *ngIf="user.enabled">
+                        <a (click)="changeStatus(false,user.id)" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Block">
+                            <i class="ion ion-md-close"></i>
+                        </a>
+                    </span>
+                    <span *ngIf="!user.enabled">
+                        <a (click)="changeStatus(true,user.id)" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Un Block">
+                            <i class="ion ion-md-open"></i>
+                        </a>
+                    </span>
+                    <!--<a href="javascript:void(0)" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Delete">-->
+                        <!--<i class="ion ion-md-trash"></i>-->
+                    <!--</a>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- / Table -->
+
+    <!-- Pagination -->
+    <div class="card-body py-0">
+
+        <div class="row">
+            <div class="col-sm text-sm-left text-center pt-3">
+                <span class="text-muted" *ngIf="totalItems">Page {{ currentPage }} of {{ totalPages }}</span>
+            </div>
+            <div class="col-sm pt-3">
+                <ngb-pagination
+                        [collectionSize]="totalItems"
+                        [pageSize]="perPage"
+                        [(page)]="currentPage"
+                        (pageChange)="update()"
+                        size="sm"
+                        class="d-flex justify-content-center justify-content-sm-end m-0"></ngb-pagination>
+            </div>
+        </div>
+
+    </div>
+    <!-- / Pagination -->
+</div>

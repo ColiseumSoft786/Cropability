@@ -1,0 +1,45 @@
+
+<h4 class="font-weight-bold py-3 mb-4">
+  Roles
+  <button routerLink="create" type="button" class="btn btn-round btn-outline-primary float-right">Create Role</button>
+
+</h4>
+
+<div class="row">
+  <div class="col-xs-12 col-md-6">
+    <div class="card">
+      <hr class="border-light m-0">
+      <div class="table-responsive">
+        <table class="table card-table">
+          <thead>
+          <tr>
+            <th class="text-nowrap" style="width: 10%">#</th>
+            <th class="text-nowrap">
+              Name
+            </th>
+            <th class="text-center">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let r of roles; let i = index">
+          <td class="align-middle">{{i+1}}</td>
+          <td class="align-middle">{{ r.name }}</td>
+          <td class="text-center text-nowrap align-middle">
+          <a routerLink="/roles/edit/{{ r.id }}" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Edit">
+          <i class="ion ion-md-create"></i>
+          </a>
+          <!--<a class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Delete">-->
+          <!--<i class="ion ion-md-trash"></i>-->
+          <!--</a>-->
+
+          </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+

@@ -1,0 +1,123 @@
+<h4 class="font-weight-bold py-3 mb-4">
+  Add New User
+  <button routerLink="/users" type="button" class="btn btn-sm btn-dark float-right"><span class="fa fa-angle-left"></span>&nbsp;&nbsp;Back</button>
+</h4>
+
+<div class="row">
+  <div class="col-sm-8">
+    <div class="card" style="padding: 10px">
+      <form #userForm="ngForm">
+      <div class="row">
+
+          <div class="col-sm-6">
+            <div class="card-title">
+              Account Information
+            </div>
+            <div class="form-group">
+              <label class="form-label">Username</label>
+              <input type="text" name="username" required [(ngModel)]="form.username" #username="ngModel" placeholder="Username" class="form-control">
+              <div *ngIf="!username.value && username.touched" class="form-error">username is required</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input type="email" name="email" email="true" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" required [(ngModel)]="form.email" #email="ngModel" placeholder="Email" class="form-control">
+              <div *ngIf="!email.value && email.touched" class="form-error">email is required</div>
+              <div  class="form-error" *ngIf="email.errors && email.errors.pattern">
+                Email is invalid
+              </div>
+
+            </div>
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <input type="password" required name="password" [(ngModel)]="form.password" #password="ngModel" placeholder="Password" class="form-control">
+              <div *ngIf="!password.value && password.touched" class="form-error">password is required</div>
+            </div>
+            <div class="form-group">
+              <div class="form-group">
+                <label class="form-label">Select Role</label>
+                <select required class="custom-select form-control" name="role" [(ngModel)]="form.role" #role="ngModel">
+                  <option selected value="">- Select Role -</option>
+                  <option value="{{ r.id }}" *ngFor="let r of roles">{{ r.name }}</option>
+                </select>
+                <div *ngIf="!role.value && role.touched" class="form-error">role is required</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Cnic</label>
+              <input type="text" required name="cnic" [(ngModel)]="form.cnic" #cnic="ngModel" placeholder="Cnic" class="form-control">
+              <div *ngIf="!cnic.value && cnic.touched" class="form-error">cnic is required</div>
+            </div>
+
+          </div>
+
+          <div class="col-sm-6">
+            <div class="card-title">
+              Personal Information
+            </div>
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input required type="text" name="fullname" [(ngModel)]="form.fullname" #fullname="ngModel" placeholder="Full Name" class="form-control">
+              <div *ngIf="!fullname.value && fullname.touched" class="form-error">full name is required</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone #</label>
+              <input required type="text" name="phone" [(ngModel)]="form.phone" #phone="ngModel" placeholder="Phone #" class="form-control">
+              <div *ngIf="!phone.value && phone.touched" class="form-error">phone is required</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Joining Date</label>
+              <div class="input-group">
+                <input required class="form-control" name="joining" placeholder="joining date"
+                       ngbDatepicker
+                       [(ngModel)]="form.joining"
+                       [displayMonths]="displayMonths"
+                       [navigation]="navigation"
+                       [disabled]="disabled"
+                       #d="ngbDatepicker"
+                       #joining="ngModel" >
+                <div class="input-group-append">
+                  <button class="input-group-text" [disabled]="disabled" (click)="d.toggle()" type="button">
+                    <span class="ion ion-md-calendar" style="cursor: pointer;"></span>
+                  </button>
+                </div>
+              </div>
+              <div *ngIf="!joining.value && joining.touched" class="form-error">joining date is required</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Position</label>
+              <select required name="poistion" class="custom-select form-control" [(ngModel)]="form.position" #position="ngModel">
+                <option selected value="">- Select Position -</option>
+                <option value="Farm Manager">Farm Manager</option>
+                <option value="horticulturist">horticulturist</option>
+                <option value="Farm Supervisor">Farm Supervisor</option>
+                <option value="Team Leader">Team Leader</option>
+                <option value="Greenhouse Operator">Greenhouse Operator</option>
+                <option value="Greenhouse Manager">Greenhouse Manager</option>
+                <option value="Quality Control">Quality Control</option>
+                <option value="Engineer">Engineer</option>
+                <option value="Field Operator">Field Operator</option>
+                <option value="Maintenance">Maintenance</option>
+                <option selected="" value="Office Staff">Office Staff</option>
+                <option value="Security">Security</option>
+                <option value="Driver">Driver</option>
+                <option value="Accountant">Accountant</option>
+                <option value="Administrator">Administrator</option>
+              </select>
+              <div *ngIf="!position.value && position.touched" class="form-error">position is required</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Salary</label>
+              <input required name="salary" type="text" [(ngModel)]="form.salary" #salary="ngModel" placeholder="Salary" class="form-control">
+              <div *ngIf="!salary.value && salary.touched" class="form-error">salary is required</div>
+            </div>
+          </div>
+          <div class="col-sm-12">
+            <button type="button" (click)="createUser()" [disabled]="userForm.form.invalid" class="btn btn-sm btn-primary" style="display: block;margin: auto;margin-top: 20px">Create User</button>
+          </div>
+
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
