@@ -11,8 +11,10 @@ export class AuthService {
   private loggedInStatus = false;
   private token = '';
   private url = environment.baseUrl;
+
   private options;
   constructor(private http: HttpClient, private router: Router) {
+      console.log(this.url);
         this.loggedInCheck();
 
       this.options = {
