@@ -6,7 +6,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
   providedIn: 'root'
 })
 export class SettingService {
-    private url = environment.baseUrl;
+    private url = 'http://46.101.57.72:3000';
     private options;
     constructor(private http: HttpClient) {
         this.options = {

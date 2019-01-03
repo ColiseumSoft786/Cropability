@@ -10,7 +10,7 @@ export class AuthService {
 
   private loggedInStatus = false;
   private token = '';
-  private url = environment.baseUrl;
+  private url = 'http://46.101.57.72:3000';
   private options;
   constructor(private http: HttpClient, private router: Router) {
         this.loggedInCheck();
