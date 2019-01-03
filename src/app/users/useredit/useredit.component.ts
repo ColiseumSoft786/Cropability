@@ -24,7 +24,8 @@ export class UsereditComponent implements OnInit {
         position: '',
         salary: '',
         role: '',
-        cnic: ''
+        cnic: '',
+        enabled: false
     };
     public date = '';
     public olddate = {year: now.getFullYear(), month: now.getMonth() + 1, day: now.getDate()};
@@ -55,6 +56,7 @@ export class UsereditComponent implements OnInit {
             this.form.salary = data.salary;
             this.form.position = data.position;
             this.form.phone = data.phone;
+            this.form.enabled = data.enabled;
             console.log(this.form);
         });
         this.userSrv.getAllRoles().subscribe((data: any) => {

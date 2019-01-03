@@ -81,16 +81,6 @@
                     <a routerLink="edit/{{user.id}}" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Edit">
                         <i class="ion ion-md-create"></i>
                     </a>
-                    <span *ngIf="user.enabled">
-                        <a (click)="changeStatus(false,user.id)" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Block">
-                            <i class="ion ion-md-close"></i>
-                        </a>
-                    </span>
-                    <span *ngIf="!user.enabled">
-                        <a (click)="changeStatus(true,user.id)" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Un Block">
-                            <i class="ion ion-md-open"></i>
-                        </a>
-                    </span>
                     <!--<a href="javascript:void(0)" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Delete">-->
                         <!--<i class="ion ion-md-trash"></i>-->
                     <!--</a>-->

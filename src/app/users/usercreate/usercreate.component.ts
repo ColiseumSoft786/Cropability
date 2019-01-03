@@ -38,7 +38,8 @@ export class UsercreateComponent implements OnInit {
       position: '',
       salary: '',
       role: '',
-      cnic: ''
+      cnic: '',
+      enabled: false
   };
   public roles = [];
 
@@ -59,6 +60,7 @@ export class UsercreateComponent implements OnInit {
   createUser() {
       const joining = this.form.joining['year'] + '-' + this.form.joining['month'] + '-' + this.form.joining['day'];
       this.form.joining = joining;
+      console.log(this.form);
       this.userSrv.createUser(this.form).subscribe((data: any) => {
             console.log(data);
             this.router.navigate(['/users']);
