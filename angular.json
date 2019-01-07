@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist",
+            "outputPath": "dist/angular-starter",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -31,10 +31,9 @@
 
               "src/vendor/styles/bootstrap-material.scss",
               "src/vendor/styles/appwork-material.scss",
-              "src/vendor/styles/theme-vibrant-material.scss",
+              "src/vendor/styles/theme-paper-material.scss",
               "src/vendor/styles/colors-material.scss",
-              "src/vendor/styles/uikit.scss",
-              "node_modules/ngx-toastr/toastr.css"
+              "src/vendor/styles/uikit.scss"
             ],
             "scripts": []
           },

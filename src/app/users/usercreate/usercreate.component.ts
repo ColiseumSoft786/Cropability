@@ -3,6 +3,7 @@ import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import {AuthService} from '../../Services/auth.service';
 import {UserService} from '../../Services/user.service';
 import {Router} from '@angular/router';
+import {AppService} from '../../app.service';
 
 const now = new Date();
 
@@ -39,7 +40,7 @@ export class UsercreateComponent implements OnInit {
       salary: '',
       role: '',
       cnic: '',
-      enabled: false
+      enabled: true
   };
   public roles = [];
 
@@ -49,8 +50,11 @@ export class UsercreateComponent implements OnInit {
   constructor(
       private auth: AuthService,
       private userSrv: UserService,
-      private router: Router
-  ) { }
+      private router: Router,
+      private appService: AppService
+  ) {
+      this.appService.pageTitle = 'User Create';
+  }
 
   ngOnInit() {
       this.userSrv.getAllRoles().subscribe((data: any) => {

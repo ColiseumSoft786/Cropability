@@ -3,6 +3,7 @@ import {AuthService} from '../../Services/auth.service';
 import {UserService} from '../../Services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import {AppService} from '../../app.service';
 const now = new Date();
 
 @Component({
@@ -37,8 +38,11 @@ export class UsereditComponent implements OnInit {
         private auth: AuthService,
         private userSrv: UserService,
         private route: ActivatedRoute,
-        private router: Router
-    ) { }
+        private router: Router,
+        private appService: AppService
+    ) {
+        this.appService.pageTitle = 'User Edit';
+    }
 
     ngOnInit() {
         const id = this.route.snapshot.paramMap.get('id');

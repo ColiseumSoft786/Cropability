@@ -21,6 +21,8 @@ import {RolecreateComponent} from './users/roles/rolecreate/rolecreate.component
 import {RoleeditComponent} from './users/roles/roleedit/roleedit.component';
 import {UsercreateComponent} from './users/usercreate/usercreate.component';
 import {UsereditComponent} from './users/useredit/useredit.component';
+import {ProfileComponent} from './user/profile/profile.component';
+import {UserdocumentsComponent} from './users/userdocuments/userdocuments.component';
 
 // *******************************************************************************
 // Routes
@@ -33,13 +35,16 @@ const routes: Routes = [
             { path: '', component: ListComponent},
             { path: 'create', component: UsercreateComponent},
             { path: 'edit/:id', component: UsereditComponent},
+            { path: 'documents/:id', component: UserdocumentsComponent},
         ]},
     { path: 'roles', component: Layout1Component, canActivateChild: [AuthGuard] , children: [
             { path: '', component: RoleslistComponent},
             { path: 'create', component: RolecreateComponent },
             { path: 'edit/:id', component: RoleeditComponent },
         ]},
-
+    { path: 'profile', component: Layout1Component, canActivateChild: [AuthGuard] , children: [
+            { path: '', component: ProfileComponent},
+        ]},
     { path: '', component: LayoutBlankComponent, children: [
             { path: 'login', component: LoginComponent },
             { path: 'register', component: RegisterComponent }

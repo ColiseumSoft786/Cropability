@@ -1,0 +1,88 @@
+<h4 class="font-weight-bold py-3 mb-4">
+  Documents of "{{ user.fullname }}"
+  <button routerLink="/users" type="button" class="btn btn-sm btn-dark float-right"><span class="fa fa-angle-left"></span>&nbsp;&nbsp;Back</button>
+</h4>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card p-3">
+        <div class="card-title">
+          Add Document
+        </div>
+        <form #docForm="ngForm">
+          <div class="form-group">
+            <label for="" class="form-label">Name</label>
+            <input required [(ngModel)]="document.name" #name="ngModel" name="name" type="text" placeholder="Name" class="form-control">
+            <div *ngIf="!name.value && name.touched" class="form-error">name is required</div>
+
+          </div>
+          <div class="form-group">
+            <label for="" class="form-label">Expiry</label>
+            <div class="input-group">
+              <input required class="form-control" #expiry="ngModel" name="expiry" placeholder="joining date"
+                     ngbDatepicker
+                     [(ngModel)]="document.expiry"
+                     [displayMonths]="displayMonths"
+                     [navigation]="navigation"
+                     [disabled]="disabled"
+                     #d="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="input-group-text" [disabled]="disabled" (click)="d.toggle()" type="button">
+                  <span class="ion ion-md-calendar" style="cursor: pointer;"></span>
+                </button>
+              </div>
+            </div>
+            <div *ngIf="!expiry.value && expiry.touched" class="form-error">expiry date is required</div>
+          </div>
+          <div class="form-group">
+            <label for="" class="form-label">Image</label>
+            <input (change)="selectFile($event)" #fileinput accept="image/*" type="file" placeholder="Image" class="form-control">
+          </div>
+          <div *ngIf="fileerror != ''" class="form-error">{{ fileerror }}</div>
+          <button type="button" (click)="uploadDocument();fileinput.value = ''" class="btn btn-primary float-right" [disabled]="docForm.form.invalid">Insert Document</button>&nbsp;
+
+        </form>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="card">
+        <div class="table-responsive">
+          <table class="table card-table">
+            <thead>
+            <tr>
+              <th class="text-nowrap cursor-pointer">
+                #
+              </th>
+              <th class="text-nowrap">
+                Image<i class="ion text-muted ml-2"></i>
+              </th>
+              <th class="text-nowrap">
+                Name<i class="ion text-muted ml-2"></i>
+              </th>
+              <th class="text-nowrap">
+                Expiry Date<i class="ion text-muted ml-2"></i>
+              </th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngIf="documents.length == 0">
+              <td colspan="5" class="text-center">No Data Found</td>
+            </tr>
+            <tr *ngFor="let doc of documents; let i = index">
+              <td class="align-middle">{{ i + 1 }}</td>
+              <td class="align-middle"><img style="width: 100px;height: 100px" class="img-thumbnail" [src]="url + '/' + doc.photo" alt=""></td>
+              <td class="align-middle">{{doc.name}}</td>
+              <td class="align-middle">{{doc.expiry | date : format : "fullDate"}}</td>
+              <td class="text-center text-nowrap align-middle">
+                <a (click)="deleteDoc(doc.id)" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Delete">
+                  <i class="ion ion-md-trash"></i>
+                </a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>

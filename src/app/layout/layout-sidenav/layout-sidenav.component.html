@@ -1,12 +1,11 @@
 <sidenav [orientation]="orientation" [ngClass]="getClasses()">
-
   <div class="sidenav-inner" [ngClass]="{ 'py-1': orientation !== 'horizontal' }">
     <sidenav-router-link icon="ion ion-md-desktop" route="/" [active]="isActive('/')">Home</sidenav-router-link>
+    <li class="sidenav-divider mb-1"></li>
+    <li class="sidenav-header small font-weight-semibold">ACCOUNTS</li>
+
     <sidenav-router-link icon="ion ion-md-list" route="/users" [active]="isActive('/users')">Users</sidenav-router-link>
     <sidenav-router-link icon="ion ion-md-paper" route="/roles" [active]="isActive('/roles')">Roles & Permissions</sidenav-router-link>
-
+    <sidenav-router-link icon="ion ion-md-person" route="/profile" [active]="isActive('/profile')">Profile</sidenav-router-link>
   </div>
-
-
-
 </sidenav>

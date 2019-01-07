@@ -33,6 +33,8 @@ import {ToastrModule} from 'ngx-toastr';
 import { RoleeditComponent } from './users/roles/roleedit/roleedit.component';
 import { UsercreateComponent } from './users/usercreate/usercreate.component';
 import { UsereditComponent } from './users/useredit/useredit.component';
+import { ProfileComponent } from './user/profile/profile.component';
+import { UserdocumentsComponent } from './users/userdocuments/userdocuments.component';
 
 // *******************************************************************************
 //
@@ -51,7 +53,9 @@ import { UsereditComponent } from './users/useredit/useredit.component';
         RolecreateComponent,
         RoleeditComponent,
         UsercreateComponent,
-        UsereditComponent
+        UsereditComponent,
+        ProfileComponent,
+        UserdocumentsComponent
     ],
 
     imports: [

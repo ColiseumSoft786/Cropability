@@ -3,6 +3,7 @@ import { AppService } from '../../app.service';
 import { LayoutService } from '../../layout/layout.service';
 import {AuthService} from '../../Services/auth.service';
 import {Router} from '@angular/router';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-layout-navbar',
@@ -13,6 +14,7 @@ export class LayoutNavbarComponent {
   isExpanded = false;
   isRTL: boolean;
   user: any;
+  url = environment.baseUrl;
   @Input() sidenavToggle = true;
 
   @HostBinding('class.layout-navbar') private hostClassMain = true;

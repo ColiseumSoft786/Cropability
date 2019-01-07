@@ -3,6 +3,7 @@ import {AuthService} from '../../../Services/auth.service';
 import {UserService} from '../../../Services/user.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
+import {AppService} from '../../../app.service';
 
 @Component({
   selector: 'app-rolecreate',
@@ -15,8 +16,11 @@ export class RolecreateComponent implements OnInit {
   constructor(private auth: AuthService,
               private userSrv: UserService,
               private toast: ToastrService,
-              private router: Router
-  ) { }
+              private router: Router,
+              private appService: AppService
+  ) {
+      this.appService.pageTitle = 'Role Create';
+  }
 
   ngOnInit() {
     this.userSrv.getAllFeatures().subscribe((data: any) => {

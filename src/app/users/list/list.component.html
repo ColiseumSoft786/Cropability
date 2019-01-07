@@ -60,7 +60,7 @@
             </thead>
             <tbody>
             <tr *ngIf="usersData.length == 0">
-                <td colspan="6" class="text-center">loading...</td>
+                <td colspan="6" class="text-center">No Data Found</td>
             </tr>
             <tr *ngFor="let user of usersData; let i = index">
                 <td class="align-middle">{{ i + 1 }}</td>
@@ -81,9 +81,9 @@
                     <a routerLink="edit/{{user.id}}" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Edit">
                         <i class="ion ion-md-create"></i>
                     </a>
-                    <!--<a href="javascript:void(0)" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Delete">-->
-                        <!--<i class="ion ion-md-trash"></i>-->
-                    <!--</a>-->
+                    <a routerLink="documents/{{user.id}}" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Documents">
+                        <i class="ion ion-md-document"></i>
+                    </a>
                 </td>
             </tr>
             </tbody>

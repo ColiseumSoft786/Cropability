@@ -4,6 +4,7 @@ import {UserService} from '../../../Services/user.service';
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router} from '@angular/router';
 import {isInteger} from '@ng-bootstrap/ng-bootstrap/util/util';
+import {AppService} from '../../../app.service';
 
 @Component({
   selector: 'app-roleedit',
@@ -20,8 +21,11 @@ export class RoleeditComponent implements OnInit {
                 private userSrv: UserService,
                 private toast: ToastrService,
                 private router: Router,
-                private route: ActivatedRoute
-    ) {
+                private route: ActivatedRoute,
+                private appService: AppService
+
+) {
+        this.appService.pageTitle = 'Role Edit';
         this.id = this.route.snapshot.paramMap.get('id');
 
     }

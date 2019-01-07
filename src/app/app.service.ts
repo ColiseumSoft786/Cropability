@@ -23,17 +23,17 @@ export class AppService {
 
     // Layout navbar color
     get layoutNavbarBg() {
-        return 'navbar-theme';
+        return 'lighter';
     }
 
     // Layout sidenav color
     get layoutSidenavBg() {
-        return 'primary';
+        return 'light';
     }
 
     // Layout footer color
     get layoutFooterBg() {
-        return 'dark';
+        return 'lighter';
     }
 
     // Animate scrollTop
