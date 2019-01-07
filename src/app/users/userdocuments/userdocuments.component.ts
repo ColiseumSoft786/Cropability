@@ -13,7 +13,7 @@ import {environment} from '../../../environments/environment';
 })
 export class UserdocumentsComponent implements OnInit {
     @ViewChild('docForm') formValues;
-  public user = {};
+  public user: any;
     displayMonths = 1;
     navigation = 'select';
     disabled = false;
