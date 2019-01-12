@@ -11,12 +11,15 @@ export class AuthService {
   private loggedInStatus = false;
   private token = '';
   private url = environment.baseUrl;
+  private user;
+  private perm;
 
   private options;
   constructor(private http: HttpClient, private router: Router) {
       console.log(this.url);
-        this.loggedInCheck();
-
+      this.user = JSON.parse(localStorage.getItem('user'));
+      this.perm = JSON.parse(localStorage.getItem('perm'));
+      this.loggedInCheck();
       this.options = {
           headers: new HttpHeaders({
               'Content-Type':  'application/json',
@@ -55,9 +58,7 @@ export class AuthService {
           (datas: any) => {
               console.log(datas);
               if (datas.message !== 'valid') {
-                  localStorage.removeItem('loggedIn');
-                  localStorage.removeItem('user');
-                  localStorage.removeItem('token');
+                  localStorage.clear();
                   this.token = null;
                   this.loggedInStatus = false;
                 this.router.navigate(['login']);
@@ -74,11 +75,11 @@ export class AuthService {
       //    this.router.navigate(['login']);
       // }
   }
-    login(username: string, password: string) {
+  login(username: string, password: string) {
         const data = {
             username: username,
             password: password
         };
         return this.http.post(this.url + '/account/login', data, this.options);
-    }
+  }
 }

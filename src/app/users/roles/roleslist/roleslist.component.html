@@ -1,7 +1,7 @@
 
 <h4 class="font-weight-bold py-3 mb-4">
   Roles
-  <button routerLink="create" type="button" class="btn btn-round btn-outline-primary float-right">Create Role</button>
+  <button *ngIf="appSrv.isRole('roles','create')" routerLink="create" type="button" class="btn btn-round btn-outline-primary float-right">Create Role</button>
 
 </h4>
 
@@ -17,7 +17,7 @@
             <th class="text-nowrap">
               Name
             </th>
-            <th class="text-center">Actions</th>
+            <th class="text-center"></th>
           </tr>
           </thead>
           <tbody>
@@ -25,7 +25,8 @@
           <td class="align-middle">{{i+1}}</td>
           <td class="align-middle">{{ r.name }}</td>
           <td class="text-center text-nowrap align-middle">
-          <a routerLink="/roles/edit/{{ r.id }}" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Edit">
+
+          <a *ngIf="appSrv.isRole('roles','update')" routerLink="/roles/edit/{{ r.id }}" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Edit">
           <i class="ion ion-md-create"></i>
           </a>
           <!--<a class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Delete">-->

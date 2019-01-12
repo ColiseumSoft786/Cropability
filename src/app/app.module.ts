@@ -20,11 +20,10 @@ import { LayoutModule } from './layout/layout.module';
 // Pages
 
 import { HomeComponent } from './home/home.component';
-import { Page2Component } from './page-2/page-2.component';
 import {LoginComponent} from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import {AuthService} from './Services/auth.service';
-import {AuthGuard} from './Guard/auth.guard';
+import {AuthService} from './_services/auth.service';
+import {AuthGuard} from './_guard/auth.guard';
 import {HttpClientModule} from '@angular/common/http';
 import { ListComponent } from './users/list/list.component';
 import { RoleslistComponent } from './users/roles/roleslist/roleslist.component';
@@ -35,6 +34,7 @@ import { UsercreateComponent } from './users/usercreate/usercreate.component';
 import { UsereditComponent } from './users/useredit/useredit.component';
 import { ProfileComponent } from './user/profile/profile.component';
 import { UserdocumentsComponent } from './users/userdocuments/userdocuments.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 // *******************************************************************************
 //
@@ -45,7 +45,6 @@ import { UserdocumentsComponent } from './users/userdocuments/userdocuments.comp
 
         // Pages
         HomeComponent,
-        Page2Component,
         LoginComponent,
         RegisterComponent,
         ListComponent,
@@ -55,7 +54,8 @@ import { UserdocumentsComponent } from './users/userdocuments/userdocuments.comp
         UsercreateComponent,
         UsereditComponent,
         ProfileComponent,
-        UserdocumentsComponent
+        UserdocumentsComponent,
+        NotFoundComponent
     ],
 
     imports: [

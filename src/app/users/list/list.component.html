@@ -1,8 +1,9 @@
 <h4 class="font-weight-bold py-3 mb-4">
     Users
-    <button routerLink="create" type="button" class="btn btn-round btn-outline-primary float-right">Add User</button>
+    <button *ngIf="appService.isRole('users','create')" routerLink="create" type="button" class="btn btn-round btn-outline-primary float-right">Add User</button>
 
 </h4>
+
 
 <div class="card">
 
@@ -78,12 +79,13 @@
                     <!--<span class="badge badge-outline-default" *ngIf="user.status === 3">Deleted</span>-->
                 </td>
                 <td class="text-center text-nowrap align-middle">
-                    <a routerLink="edit/{{user.id}}" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Edit">
+                    <a *ngIf="appService.isRole('users','update')" routerLink="edit/{{user.id}}" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Edit">
                         <i class="ion ion-md-create"></i>
                     </a>
-                    <a routerLink="documents/{{user.id}}" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Documents">
-                        <i class="ion ion-md-document"></i>
+                    <a  *ngIf="appService.isRole('documents','read')" routerLink="documents/{{user.id}}" class="btn btn-round btn-xs btn-outline-primary">
+                        documents
                     </a>
+
                 </td>
             </tr>
             </tbody>

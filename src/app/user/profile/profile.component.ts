@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AppService} from '../../app.service';
-import {UserService} from '../../Services/user.service';
+import {UserService} from '../../_services/user.service';
 import {environment} from '../../../environments/environment';
 import {ToastrService} from 'ngx-toastr';
 

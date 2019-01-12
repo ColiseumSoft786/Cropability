@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from '../../../Services/user.service';
+import {UserService} from '../../../_services/user.service';
 import {AppService} from '../../../app.service';
-import {AuthService} from '../../../Services/auth.service';
+import {AuthService} from '../../../_services/auth.service';
 
 @Component({
   selector: 'app-roleslist',

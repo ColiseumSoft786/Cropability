@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 
 
 // *******************************************************************************
-// Services
+// _services
 
 import { ThemeSettingsService } from './theme-settings.service';
 

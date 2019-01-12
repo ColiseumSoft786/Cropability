@@ -2,6 +2,7 @@ import { Component, Input, ChangeDetectionStrategy, AfterViewInit, HostBinding }
 import { Router } from '@angular/router';
 import { AppService } from '../../app.service';
 import { LayoutService } from '../layout.service';
+import {FormService} from '../../_services/form.service';
 
 @Component({
   selector: 'app-layout-sidenav',
@@ -16,11 +17,20 @@ export class LayoutSidenavComponent implements AfterViewInit {
   @HostBinding('class.layout-sidenav-horizontal') private hostClassHorizontal = false;
   @HostBinding('class.flex-grow-0') private hostClassFlex = false;
 
-  constructor(private router: Router, private appService: AppService, private layoutService: LayoutService) {
+  public forms;
+  public form = '';
+  constructor(private router: Router, private appService: AppService, private layoutService: LayoutService, private formSrv: FormService) {
     // Set host classes
     this.hostClassVertical = this.orientation !== 'horizontal';
     this.hostClassHorizontal = !this.hostClassVertical;
     this.hostClassFlex = this.hostClassHorizontal;
+    this.forms = JSON.parse(localStorage.getItem('forms'));
+    this.form = JSON.parse(localStorage.getItem('sf'));
+  }
+  selectForm(form) {
+      localStorage.setItem('sf', JSON.stringify(form));
+      this.form = form;
+      this.router.navigate(['']);
   }
 
   ngAfterViewInit() {

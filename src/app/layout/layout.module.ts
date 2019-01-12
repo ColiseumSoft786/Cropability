@@ -33,7 +33,7 @@ import { SidenavModule } from '../../vendor/libs/sidenav/sidenav.module';
 
 
 // *******************************************************************************
-// Services
+// _services
 
 import { LayoutService } from './layout.service';
 

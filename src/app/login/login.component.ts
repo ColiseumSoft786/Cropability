@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AppService} from '../app.service';
-import {AuthService} from '../Services/auth.service';
+import {AuthService} from '../_services/auth.service';
 import {Router} from '@angular/router';
-import {SettingService} from '../Services/setting.service';
+import {SettingService} from '../_services/setting.service';
 import 'rxjs/add/operator/map';
 @Component({
   selector: 'app-login',
@@ -35,6 +35,9 @@ export class LoginComponent implements OnInit {
               } else {
                   this.error = '';
                   localStorage.setItem('user', JSON.stringify(data.user));
+                  localStorage.setItem('perm', JSON.stringify(data.perm));
+                  localStorage.setItem('forms', JSON.stringify(data.field));
+                  localStorage.setItem('sf', JSON.stringify(data.field[0].id));
                   this.auth.setLoggedIn(true, data.token);
                   this.router.navigate(['']);
               }

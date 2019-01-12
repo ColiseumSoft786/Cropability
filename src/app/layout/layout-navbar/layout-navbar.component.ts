@@ -1,7 +1,7 @@
 import { Component, Input, HostBinding } from '@angular/core';
 import { AppService } from '../../app.service';
 import { LayoutService } from '../../layout/layout.service';
-import {AuthService} from '../../Services/auth.service';
+import {AuthService} from '../../_services/auth.service';
 import {Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
 
@@ -33,9 +33,7 @@ export class LayoutNavbarComponent {
   }
     logout() {
         this.auth.setLoggedIn(false, '');
-        localStorage.removeItem('loggedIn');
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
+        localStorage.clear();
         this.router.navigate(['login']);
     }
 }

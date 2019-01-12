@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
-import {AuthService} from '../../Services/auth.service';
-import {UserService} from '../../Services/user.service';
+import {AuthService} from '../../_services/auth.service';
+import {UserService} from '../../_services/user.service';
 import {Router} from '@angular/router';
 import {AppService} from '../../app.service';
 

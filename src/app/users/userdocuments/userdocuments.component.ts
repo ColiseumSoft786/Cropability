@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AppService} from '../../app.service';
-import {UserService} from '../../Services/user.service';
+import {UserService} from '../../_services/user.service';
 import {ActivatedRoute} from '@angular/router';
 import {environment} from '../../../environments/environment';
 

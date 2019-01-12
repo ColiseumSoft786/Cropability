@@ -3,7 +3,7 @@
   <button routerLink="/users" type="button" class="btn btn-sm btn-dark float-right"><span class="fa fa-angle-left"></span>&nbsp;&nbsp;Back</button>
 </h4>
   <div class="row">
-    <div class="col-md-4">
+    <div *ngIf="appSrv.isRole('documents','create')" class="col-md-4">
       <div class="card p-3">
         <div class="card-title">
           Add Document
@@ -13,7 +13,6 @@
             <label for="" class="form-label">Name</label>
             <input required [(ngModel)]="document.name" #name="ngModel" name="name" type="text" placeholder="Name" class="form-control">
             <div *ngIf="!name.value && name.touched" class="form-error">name is required</div>
-
           </div>
           <div class="form-group">
             <label for="" class="form-label">Expiry</label>
@@ -74,7 +73,7 @@
               <td class="align-middle">{{doc.name}}</td>
               <td class="align-middle">{{doc.expiry | date : format : "fullDate"}}</td>
               <td class="text-center text-nowrap align-middle">
-                <a (click)="deleteDoc(doc.id)" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Delete">
+                <a  *ngIf="appSrv.isRole('documents','delete')" (click)="deleteDoc(doc.id)" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Delete">
                   <i class="ion ion-md-trash"></i>
                 </a>
               </td>

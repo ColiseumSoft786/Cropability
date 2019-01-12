@@ -85,4 +85,13 @@ export class UserService {
     deleteDocument(id, userid) {
         return this.http.get(this.url + '/users/document/delete/' + id + '/' + userid, this.options);
     }
+    updatePerms() {
+        if (localStorage.getItem('user') !== null) {
+            const id = JSON.parse(localStorage.getItem('user'))['roleId'];
+            this.http.get(this.url + '/account/getRoles/' + id, this.options).subscribe((perm: any) => {
+                console.log(perm);
+                localStorage.setItem('perm', JSON.stringify(perm));
+            });
+        }
+    }
 }

@@ -3,7 +3,10 @@ import { Title } from '@angular/platform-browser';
 
 @Injectable()
 export class AppService {
-    constructor(private titleService: Title) {}
+    private perm;
+    constructor(private titleService: Title) {
+        this.perm = JSON.parse(localStorage.getItem('perm'));
+    }
 
     // Set page title
     set pageTitle(value: string) {
@@ -63,5 +66,16 @@ export class AppService {
         };
 
         animateScroll();
+    }
+    isRole(role, perm) {
+        this.perm = JSON.parse(localStorage.getItem('perm'));
+        for (let i = 0; i < this.perm.length; i++) {
+            if (this.perm[i].feature.name === role) {
+                if (this.perm[i].full === true) {
+                    return true;
+                }
+                return this.perm[i][perm];
+            }
+        }
     }
 }
