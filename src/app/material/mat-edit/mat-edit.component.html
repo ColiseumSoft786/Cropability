@@ -1,0 +1,421 @@
+<h4 class="font-weight-bold py-3 mb-4">
+  Edit Material
+  <button routerLink="/material" type="button" class="btn btn-sm btn-dark float-right"><span class="fa fa-angle-left"></span>&nbsp;&nbsp;Back</button>
+</h4>
+<div class="row">
+  <div class="col-md-4">
+    <div class="card" style="padding: 20px">
+      <div class="form-group">
+        <label class="form-label">Select Material Category</label>
+        <select [(ngModel)]="data.category" name="category" (change)="changeCategory()" class="custom-select">
+          <option value="">- Select Category -</option>
+          <option value="{{c}}" *ngFor="let c of category">{{c}}</option>
+        </select>
+        <div *ngIf="cat_error !== ''" class="form-error">{{cat_error}}</div>
+
+      </div>
+      <div class="form-group">
+        <label class="form-label">Select Image</label>
+        <input type="file" (change)="selectFile($event)" name="file">
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary float-right" style="margin-top: 10px" (click)="submit()">Submit</button>
+      </div>
+      <div class="form-group">
+        <img [src]="url + '/' + data.image" style="width: 100%" alt="">
+      </div>
+    </div>
+  </div>
+  <div *ngIf="seed" class="col-md-8">
+    <div class="card" style="padding: 20px">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h4>{{data.category}}</h4>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input [(ngModel)]="data.name" name="name" type="text" class="form-control" placeholder="Enter name">
+          </div>
+          <div *ngIf="name_error !== ''" class="form-error">{{name_error}}</div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="form-label">Type</label>
+            <select [(ngModel)]="data.type" name="type" class="custom-select">
+              <option value="">- Select Type -</option>
+              <option value="{{t}}" *ngFor="let t of plant_type">{{t}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Quantity</label>
+            <input [(ngModel)]="data.quantity" name="quantity" step="0.1" type="number" class="form-control" placeholder="quantity">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Price / Unit</label>
+            <input [(ngModel)]="data.price" name="price" type="number" step="0.1" class="form-control" placeholder="price / unit">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Germination Rate</label>
+            <input [(ngModel)]="data.germination_rate" name="germination_rate" type="number" step="0.1" class="form-control" placeholder="germination rate">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="form-label">Producer Name</label>
+            <input [(ngModel)]="data.producer" name="producer" type="text" class="form-control" placeholder="Producer name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Unit</label>
+            <select name="unit" [(ngModel)]="data.unit" class="custom-select">
+              <option value="">- Select Type -</option>
+              <option value="{{t}}" *ngFor="let t of seed_unit">{{t}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Expiry Date</label>
+            <input [ngModel]="data.expiry | date:'yyyy-MM-dd'" (ngModelChange)="data.expiry = $event" name="expiry" type="date" class="form-control" placeholder="Producer name">
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label">Additional Notes</label>
+            <textarea [(ngModel)]="data.notes" name="notes" placeholder="Notes" class="form-control"></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div *ngIf="agro" class="col-md-8">
+    <div class="card" style="padding: 20px">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h4>{{data.category}}</h4>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input [(ngModel)]="data.name" name="name" type="text" class="form-control" placeholder="Enter name">
+          </div>
+          <div *ngIf="name_error !== ''" class="form-error">{{name_error}}</div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="form-label">Type</label>
+            <select [(ngModel)]="data.type" name="type" class="custom-select">
+              <option value="">- Select Type -</option>
+              <option value="{{t}}" *ngFor="let t of chemical_type">{{t}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Quantity</label>
+            <input [(ngModel)]="data.quantity" name="quantity" step="0.1" type="number" class="form-control" placeholder="quantity">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Price / Unit</label>
+            <input [(ngModel)]="data.price" name="price" type="number" step="0.1" class="form-control" placeholder="price / unit">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="form-label">Producer Name</label>
+            <input [(ngModel)]="data.producer" name="producer" type="text" class="form-control" placeholder="Producer name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Unit</label>
+            <select name="unit" [(ngModel)]="data.unit" class="custom-select">
+              <option value="">- Select Type -</option>
+              <option value="{{t}}" *ngFor="let t of agro_unit">{{t}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Expiry Date</label>
+            <input [ngModel]="data.expiry | date:'yyyy-MM-dd'" (ngModelChange)="data.expiry = $event" name="expiry" type="date" class="form-control" placeholder="Producer name">
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label">Additional Notes</label>
+            <textarea [(ngModel)]="data.notes" name="notes" placeholder="Notes" class="form-control"></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div *ngIf="gm" class="col-md-8">
+    <div class="card" style="padding: 20px">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h4>{{data.category}}</h4>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input [(ngModel)]="data.name" name="name" type="text" class="form-control" placeholder="Enter name">
+          </div>
+          <div *ngIf="name_error !== ''" class="form-error">{{name_error}}</div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="form-label">Quantity</label>
+            <input [(ngModel)]="data.quantity" name="quantity" step="0.1" type="number" class="form-control" placeholder="quantity">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Price / Unit</label>
+            <input [(ngModel)]="data.price" name="price" type="number" step="0.1" class="form-control" placeholder="price / unit">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Germination Rate</label>
+            <input [(ngModel)]="data.germination_rate" name="germination_rate" type="number" step="0.1" class="form-control" placeholder="germination rate">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="form-label">Producer Name</label>
+            <input [(ngModel)]="data.producer" name="producer" type="text" class="form-control" placeholder="Producer name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Unit</label>
+            <select name="unit" [(ngModel)]="data.unit" class="custom-select">
+              <option value="">- Select Type -</option>
+              <option value="{{t}}" *ngFor="let t of gm_unit">{{t}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label">Additional Notes</label>
+            <textarea [(ngModel)]="data.notes" name="notes" placeholder="Notes" class="form-control"></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div *ngIf="lcs" class="col-md-8">
+    <div class="card" style="padding: 20px">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h4>{{data.category}}</h4>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input [(ngModel)]="data.name" name="name" type="text" class="form-control" placeholder="Enter name">
+          </div>
+          <div *ngIf="name_error !== ''" class="form-error">{{name_error}}</div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="form-label">Quantity</label>
+            <input [(ngModel)]="data.quantity" name="quantity" step="0.1" type="number" class="form-control" placeholder="quantity">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Producer Name</label>
+            <input [(ngModel)]="data.producer" name="producer" type="text" class="form-control" placeholder="Producer name">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="form-label">Price / Unit</label>
+            <input [(ngModel)]="data.price" name="price" type="number" step="0.1" class="form-control" placeholder="price / unit">
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label">Additional Notes</label>
+            <textarea [(ngModel)]="data.notes" name="notes" placeholder="Notes" class="form-control"></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div *ngIf="sc" class="col-md-8">
+    <div class="card" style="padding: 20px">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h4>{{data.category}}</h4>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input [(ngModel)]="data.name" name="name" type="text" class="form-control" placeholder="Enter name">
+          </div>
+          <div *ngIf="name_error !== ''" class="form-error">{{name_error}}</div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="form-label">Quantity</label>
+            <input [(ngModel)]="data.quantity" name="quantity" step="0.1" type="number" class="form-control" placeholder="quantity">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Price / Unit</label>
+            <input [(ngModel)]="data.price" name="price" type="number" step="0.1" class="form-control" placeholder="price / unit">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="form-label">Type</label>
+            <select [(ngModel)]="data.type" name="type" class="custom-select">
+              <option value="">- Select Type -</option>
+              <option value="{{t}}" *ngFor="let t of seeding_container_type">{{t}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Producer Name</label>
+            <input [(ngModel)]="data.producer" name="producer" type="text" class="form-control" placeholder="Producer name">
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label">Additional Notes</label>
+            <textarea [(ngModel)]="data.notes" name="notes" placeholder="Notes" class="form-control"></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div *ngIf="phs" class="col-md-8">
+    <div class="card" style="padding: 20px">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h4>{{data.category}}</h4>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input [(ngModel)]="data.name" name="name" type="text" class="form-control" placeholder="Enter name">
+          </div>
+          <div *ngIf="name_error !== ''" class="form-error">{{name_error}}</div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="form-label">Quantity</label>
+            <input [(ngModel)]="data.quantity" name="quantity" step="0.1" type="number" class="form-control" placeholder="quantity">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Price / Unit</label>
+            <input [(ngModel)]="data.price" name="price" type="number" step="0.1" class="form-control" placeholder="price / unit">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="form-label">Producer Name</label>
+            <input [(ngModel)]="data.producer" name="producer" type="text" class="form-control" placeholder="Producer name">
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label">Additional Notes</label>
+            <textarea [(ngModel)]="data.notes" name="notes" placeholder="Notes" class="form-control"></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div *ngIf="plant" class="col-md-8">
+    <div class="card" style="padding: 20px">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h4>{{data.category}}</h4>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input [(ngModel)]="data.name" name="name" type="text" class="form-control" placeholder="Enter name">
+          </div>
+          <div *ngIf="name_error !== ''" class="form-error">{{name_error}}</div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="form-label">Type</label>
+            <select [(ngModel)]="data.type" name="type" class="custom-select">
+              <option value="">- Select Type -</option>
+              <option value="{{t}}" *ngFor="let t of plant_type">{{t}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Quantity</label>
+            <input [(ngModel)]="data.quantity" name="quantity" step="0.1" type="number" class="form-control" placeholder="quantity">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Price / Unit</label>
+            <input [(ngModel)]="data.price" name="price" type="number" step="0.1" class="form-control" placeholder="price / unit">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Germination Rate</label>
+            <input [(ngModel)]="data.germination_rate" name="germination_rate" type="number" step="0.1" class="form-control" placeholder="germination rate">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="form-label">Producer Name</label>
+            <input [(ngModel)]="data.producer" name="producer" type="text" class="form-control" placeholder="Producer name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Unit</label>
+            <select name="unit" [(ngModel)]="data.unit" class="custom-select">
+              <option value="">- Select Type -</option>
+              <option value="{{t}}" *ngFor="let t of plant_unit">{{t}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Expiry Date</label>
+            <input [ngModel]="data.expiry | date:'yyyy-MM-dd'" (ngModelChange)="data.expiry = $event" name="expiry" type="date" class="form-control" placeholder="Producer name">
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label">Additional Notes</label>
+            <textarea [(ngModel)]="data.notes" name="notes" placeholder="Notes" class="form-control"></textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div *ngIf="omat" class="col-md-8">
+    <div class="card" style="padding: 20px">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h4>{{data.category}}</h4>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input [(ngModel)]="data.name" name="name" type="text" class="form-control" placeholder="Enter name">
+          </div>
+          <div *ngIf="name_error !== ''" class="form-error">{{name_error}}</div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="form-label">Quantity</label>
+            <input [(ngModel)]="data.quantity" name="quantity" step="0.1" type="number" class="form-control" placeholder="quantity">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Price / Unit</label>
+            <input [(ngModel)]="data.price" name="price" type="number" step="0.1" class="form-control" placeholder="price / unit">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label class="form-label">Producer Name</label>
+            <input [(ngModel)]="data.producer" name="producer" type="text" class="form-control" placeholder="Producer name">
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="form-group">
+            <label class="form-label">Additional Notes</label>
+            <textarea [(ngModel)]="data.notes" name="notes" placeholder="Notes" class="form-control"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

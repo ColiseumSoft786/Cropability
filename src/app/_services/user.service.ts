@@ -87,8 +87,13 @@ export class UserService {
     }
     updatePerms() {
         if (localStorage.getItem('user') !== null) {
+            const options = {
+                headers: new HttpHeaders({
+                    'access-token': localStorage.getItem('token'),
+                })
+            };
             const id = JSON.parse(localStorage.getItem('user'))['roleId'];
-            this.http.get(this.url + '/account/getRoles/' + id, this.options).subscribe((perm: any) => {
+            this.http.get(this.url + '/account/getRoles/' + id, options).subscribe((perm: any) => {
                 console.log(perm);
                 localStorage.setItem('perm', JSON.stringify(perm));
             });

@@ -35,6 +35,13 @@ import { UsereditComponent } from './users/useredit/useredit.component';
 import { ProfileComponent } from './user/profile/profile.component';
 import { UserdocumentsComponent } from './users/userdocuments/userdocuments.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ReslistComponent } from './reservoir/reslist/reslist.component';
+import { MatListComponent } from './material/mat-list/mat-list.component';
+import { MatCreateComponent } from './material/mat-create/mat-create.component';
+import { MatEditComponent } from './material/mat-edit/mat-edit.component';
+import {QRCodeModule} from 'angularx-qrcode';
+import {NgxImageGalleryModule} from 'ngx-image-gallery';
+import { ReversePipe } from './_pipes/reverse.pipe';
 
 // *******************************************************************************
 //
@@ -55,7 +62,12 @@ import { NotFoundComponent } from './not-found/not-found.component';
         UsereditComponent,
         ProfileComponent,
         UserdocumentsComponent,
-        NotFoundComponent
+        NotFoundComponent,
+        ReslistComponent,
+        MatListComponent,
+        MatCreateComponent,
+        MatEditComponent,
+        ReversePipe
     ],
 
     imports: [
@@ -64,6 +76,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
+        QRCodeModule,
+        NgxImageGalleryModule,
         // App
         AppRoutingModule,
         LayoutModule,

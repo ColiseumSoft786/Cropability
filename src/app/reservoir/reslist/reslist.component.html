@@ -1,0 +1,88 @@
+
+<h4 class="font-weight-bold py-3 mb-4">
+  Reservoirs
+</h4>
+
+<div class="row">
+  <div class="col-xs-12 col-md-5" *ngIf="appSrv.isRole('reservoirs', 'create')">
+    <div class="card">
+      <hr class="border-light m-0">
+
+      <form #resForm="ngForm" action="">
+        <div class="row" style="padding: 10px">
+          <div class="col-md-12">
+            <h5>Add New Reservoir</h5>
+            <div class="form-group">
+              <label class="form-label">Name</label>
+              <input type="text" class="form-control" #name="ngModel" [(ngModel)]="form.name" name="name" placeholder="Enter Name" required>
+              <div *ngIf="!name.value && name.touched" class="form-error">name is required</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-label">Capacity</label>
+              <input type="number" class="form-control" #capacity="ngModel" [(ngModel)]="form.capacity" name="capacity" placeholder="Enter Capacity" required>
+              <div *ngIf="!capacity.value && capacity.touched" class="form-error">capacity is required</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="form-label">Measurement Unit</label>
+              <select class="custom-select" #unit="ngModel" [(ngModel)]="form.unit" name="unit" required>
+                <option value="">- Select Unit -</option>
+                <option value="Liter">Liter</option>
+                <option value="Gallon">Gallon</option>
+              </select>
+              <div *ngIf="!unit.value && unit.touched" class="form-error">unit is required</div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <button type="reset" (click)="addResveroir()" [disabled]="resForm.form.invalid" class="btn btn-primary float-right" style="margin-top: 10px">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-xs-12 col-md-7">
+    <div class="card">
+      <hr class="border-light m-0">
+      <div class="table-responsive">
+        <table class="table card-table">
+          <thead>
+          <tr>
+            <th class="text-nowrap" style="width: 10%">#</th>
+            <th class="text-nowrap">Name</th>
+            <th class="text-nowrap">Capacity</th>
+            <th class="text-nowrap">Used In</th>
+            <th class="text-center"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngIf="res.length === 0">
+            <td colspan="5" class="text-center">No Data Found</td>
+          </tr>
+          <tr *ngFor="let r of res; let i = index">
+            <td class="align-middle">{{i+1}}</td>
+            <td class="align-middle">{{ r.name }}</td>
+            <td class="align-middle">{{ r.capacity }} {{r.unit}}</td>
+            <td class="align-middle"></td>
+            <td class="text-center text-nowrap align-middle">
+
+              <a (click)="updatePrepare(r)"  *ngIf="appSrv.isRole('reservoirs', 'update')" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Edit">
+                <i class="ion ion-md-create"></i>
+              </a>
+              <!--<a class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Delete">-->
+              <!--<i class="ion ion-md-trash"></i>-->
+              <!--</a>-->
+
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+

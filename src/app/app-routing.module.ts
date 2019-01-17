@@ -24,6 +24,10 @@ import {ProfileComponent} from './user/profile/profile.component';
 import {UserdocumentsComponent} from './users/userdocuments/userdocuments.component';
 import {RoleGuard} from './_guard/role.guard';
 import {NotFoundComponent} from './not-found/not-found.component';
+import {ReslistComponent} from './reservoir/reslist/reslist.component';
+import {MatListComponent} from './material/mat-list/mat-list.component';
+import {MatCreateComponent} from './material/mat-create/mat-create.component';
+import {MatEditComponent} from './material/mat-edit/mat-edit.component';
 
 // *******************************************************************************
 // Routes
@@ -42,6 +46,14 @@ const routes: Routes = [
             { path: '', component: RoleslistComponent, canActivate: [RoleGuard], data: {role: 'roles', perm: 'read'}},
             { path: 'create', component: RolecreateComponent , canActivate: [RoleGuard], data: {role: 'roles', perm: 'create'}},
             { path: 'edit/:id', component: RoleeditComponent , canActivate: [RoleGuard], data: {role: 'roles', perm: 'update'}},
+        ]},
+    { path: 'reservoir', component: Layout1Component, canActivateChild: [AuthGuard] , children: [
+            { path: '', component: ReslistComponent, canActivate: [RoleGuard], data: {role: 'reservoirs', perm: 'read'}},
+        ]},
+    { path: 'material', component: Layout1Component, canActivateChild: [AuthGuard] , children: [
+            { path: '', component: MatListComponent, canActivate: [RoleGuard], data: {role: 'materials', perm: 'read'}},
+            { path: 'create', component: MatCreateComponent, canActivate: [RoleGuard], data: {role: 'materials', perm: 'create'}},
+            { path: 'edit/:id', component: MatEditComponent, canActivate: [RoleGuard], data: {role: 'materials', perm: 'update'}},
         ]},
     { path: 'profile', component: Layout1Component, canActivateChild: [AuthGuard] , children: [
             { path: '', component: ProfileComponent},
