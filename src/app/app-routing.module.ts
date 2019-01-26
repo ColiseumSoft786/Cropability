@@ -28,6 +28,8 @@ import {ReslistComponent} from './reservoir/reslist/reslist.component';
 import {MatListComponent} from './material/mat-list/mat-list.component';
 import {MatCreateComponent} from './material/mat-create/mat-create.component';
 import {MatEditComponent} from './material/mat-edit/mat-edit.component';
+import {AreaListComponent} from './area/area-list/area-list.component';
+import {AreaDetailComponent} from './area/area-detail/area-detail.component';
 
 // *******************************************************************************
 // Routes
@@ -55,6 +57,10 @@ const routes: Routes = [
             { path: 'create', component: MatCreateComponent, canActivate: [RoleGuard], data: {role: 'materials', perm: 'create'}},
             { path: 'edit/:id', component: MatEditComponent, canActivate: [RoleGuard], data: {role: 'materials', perm: 'update'}},
         ]},
+    { path: 'area', component: Layout1Component, canActivateChild: [AuthGuard] , children: [
+            { path: '', component: AreaListComponent, canActivate: [RoleGuard], data: {role: 'areas', perm: 'read'}},
+            { path: ':id', component: AreaDetailComponent, canActivate: [RoleGuard], data: {role: 'areas', perm: 'read'}},
+        ]},
     { path: 'profile', component: Layout1Component, canActivateChild: [AuthGuard] , children: [
             { path: '', component: ProfileComponent},
         ]},
@@ -63,6 +69,7 @@ const routes: Routes = [
             { path: 'register', component: RegisterComponent },
             {path: '404', component: NotFoundComponent},
         ]},
+
     {path: '**', redirectTo: '/404'}
 ];
 

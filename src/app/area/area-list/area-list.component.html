@@ -1,0 +1,100 @@
+<h4 class="font-weight-bold py-3 mb-4">
+  Areas
+</h4>
+
+<div class="row">
+  <div class="col-sm-4" *ngIf="appSrv.isRole('areas', 'create')">
+    <div class="card" style="padding: 10px">
+      <h4 style="margin-top: 10px">{{ formtype }} Area</h4>
+      <form #areaForm="ngForm">
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <label class="form-label">Name</label>
+              <input type="text" placeholder="name" [(ngModel)]="form.name" name="name" required #name="ngModel" class="form-control">
+              <div *ngIf="!name.value && name.touched" class="form-error">name is required</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label class="form-label">Area</label>
+              <input type="number" step="0.1" [(ngModel)]="form.area" name="area" required="" #area="ngModel"  placeholder="area" min="1" class="form-control">
+              <div *ngIf="!area.value && area.touched" class="form-error">area is required</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label class="form-label">Unit</label>
+              <select [(ngModel)]="form.unit" #unit="ngModel" name="unit" class="custom-select">
+                <option value="">- Select Unit -</option>
+                <option value="Meters">Meters</option>
+                <option value="Acre">Acre</option>
+                <option value="Hectare">Hectare</option>
+              </select>
+              <div *ngIf="!unit.value && unit.touched" class="form-error">unit is required</div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label class="form-label">Image</label>
+              <input type="file" [(ngModel)]="form.image" #image (change)="selectFile($event)" name="image" class="form-control">
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label class="custom-control custom-checkbox">
+                <input type="checkbox" [(ngModel)]="form .isGrowing" name="growing" class="custom-control-input">
+                <span class="custom-control-label"> Is Growing ?</span>
+              </label>
+            </div>
+          </div>
+          <div class="col-12">
+            <button type="button" (click)="addArea(areaForm)" [disabled]="areaForm.form.invalid" class="btn btn-primary float-right" style="margin-top: 10px">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-sm-8">
+    <div class="card">
+      <!-- Table -->
+      <hr class="border-light m-0">
+      <div class="table-responsive">
+        <table class="table card-table">
+          <thead>
+          <tr>
+            <th class="text-nowrap">
+              #
+            </th>
+            <th class="text-nowrap"></th>
+            <th class="text-nowrap">
+              Name
+            </th>
+            <th class="text-nowrap">
+              Area
+            </th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngIf="areas.length == 0">
+            <td colspan="6" class="text-center">No Data Found</td>
+          </tr>
+          <tr *ngFor="let a of areas | reverse; let i = index">
+            <td class="align-middle">{{ i + 1 }}</td>
+            <td class="align-middle"><img [src]="url + '/' + a.image" style="width: 50px; height: 50px" alt=""></td>
+            <td class="align-middle"><a routerLink="{{a.id}}">{{a.name}}</a></td>
+            <td class="align-middle">{{a.area}} {{a.unit}} Sq.</td>
+            <td class="text-center text-nowrap align-middle">
+              <a (click)="updatePrepare(a)"  *ngIf="appSrv.isRole('areas', 'update')" class="btn btn-default btn-xs icon-btn md-btn-flat" ngbTooltip="Edit">
+                <i class="ion ion-md-create"></i>
+              </a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>

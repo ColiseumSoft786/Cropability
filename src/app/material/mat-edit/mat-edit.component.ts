@@ -46,6 +46,7 @@ export class MatEditComponent implements OnInit {
         expiry: '',
         file: '',
         notes: '',
+        image: ''
     };
     public cat_error = '';
     public name_error = '';
@@ -53,7 +54,7 @@ export class MatEditComponent implements OnInit {
         public matSrv: MaterialService,
         public router: Router,
         public route: ActivatedRoute,
-        private appSrv: AppService
+        public appSrv: AppService
     ) {
         this.appSrv.pageTitle = 'Materials';
     }

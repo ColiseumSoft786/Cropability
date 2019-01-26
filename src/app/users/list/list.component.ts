@@ -30,7 +30,7 @@ export class ListComponent implements OnInit {
 
     usersData: Object[] = [];
     originalUsersData: Object[] = [];
-  constructor(private userSrv: UserService, private appService: AppService, private auth: AuthService) {
+  constructor(private userSrv: UserService, public appService: AppService, private auth: AuthService) {
       this.appService.pageTitle = 'Users';
       this.loadData();
   }

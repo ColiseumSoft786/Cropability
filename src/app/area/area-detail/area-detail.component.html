@@ -1,0 +1,373 @@
+<h4 class="py-3 mb-4">
+  <ol class="breadcrumb font-weight-bold m-0">
+    <li class="breadcrumb-item"><a routerLink="/area" >Areas</a></li>
+    <li class="breadcrumb-item active">{{area?.name}}</li>
+  </ol>
+</h4>
+
+<!-- Header -->
+<div class="border-right-0 border-left-0 ui-bordered container-m--x mb-4">
+  <div class="row no-gutters row-bordered row-border-light">
+    <div class="col-md-9">
+      <div class="media-body container-p-x py-4">
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <div><strong class="text-primary text-large">{{calculatePercentage(remainingArea, area.area)}} %</strong> occupied</div>
+          <div class="text-muted small">{{zones.length}} zones, {{area.area - remainingArea}}/{{area?.area}} {{area?.unit}} Sq. captured</div>
+        </div>
+        <ngb-progressbar [value]="calculatePercentage(remainingArea, area.area)" height="4px"></ngb-progressbar>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="container-p-x py-4">
+        <div class="text-muted small">Is Growing ?</div>
+        <strong class="text-big" [ngClass]="'text-success'" *ngIf="area?.isGrowing">Yes</strong>
+        <strong class="text-big" [ngClass]="'text-danger'" *ngIf="!area?.isGrowing">No</strong>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- / Header -->
+
+<div class="row">
+  <div class="col">
+
+<!--
+
+    <div class="card mb-4">
+      <h6 class="card-header">Description</h6>
+      <div class="card-body" [innerHTML]="projectData.description"></div>
+    </div>
+
+    <div *ngIf="projectData.attachments && projectData.attachments.length" class="card mb-4">
+      <h6 class="card-header">Attached files</h6>
+      <div class="card-body p-3">
+        <div class="row no-gutters">
+          <div *ngFor="let attachment of projectData.attachments" class="col-md-6 col-lg-12 col-xl-6 p-1">
+
+            <div class="project-attachment ui-bordered p-2">
+              <div *ngIf="isImage(attachment)" [style.backgroundImage]="'url(\'' + attachment.path + '\')'" class="project-attachment-img"></div>
+              <div *ngIf="isFile(attachment)" class="project-attachment-file display-4"><i [ngClass]="fileIcon(attachment)"></i></div>
+
+              <div class="media-body ml-3">
+                <strong class="project-attachment-filename">{{attachment.name}}</strong>
+                <div class="text-muted small">{{attachment.size}}</div>
+                <div>
+                  <span *ngIf="isImage(attachment)"><a href="javascript:void(0)">View</a> &nbsp;</span>
+                  <a href="javascript:void(0)">Download</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+-->
+
+    <ngb-tabset class="nav-tabs-top mb-4">
+      <ngb-tab title="Tasks">
+        <ng-template ngbTabContent>
+
+          <div *ngFor="let section of projectData.taskSections; let i = index">
+            <div class="card-body">
+              <p class="text-muted small">{{section.title}}</p>
+
+              <div [sortablejs]="section.tasks" [sortablejsOptions]="sortablejsOptions" class="project-task-list custom-controls-stacked">
+                <div *ngFor="let task of section.tasks" class="project-task-item">
+
+                  <label class="ui-todo-item custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" [(ngModel)]="task.completed">
+                    <span class="custom-control-label">{{task.text}}</span>
+                    <span *ngIf="task.tags && task.tags.length">
+                      <span *ngFor="let tag of task.tags" [ngClass]="'badge-' + taskTags[tag].color" class="badge font-weight-normal ml-2">{{taskTags[tag].title}}</span>
+                    </span>
+                    <span *ngIf="task.left" class="ui-todo-badge badge badge-outline-default font-weight-normal ml-2">{{task.left}} left</span>
+                  </label>
+
+                  <div class="d-flex align-items-center">
+                    <div class="project-task-handle ion ion-ios-move text-lightest small mr-3"></div>
+
+                    <div class="btn-group" ngbDropdown [placement]="!isRTL ? 'bottom-right' : 'bottom-left'">
+                      <button type="button" class="btn btn-default btn-xs btn-round icon-btn borderless md-btn-flat hide-arrow" ngbDropdownToggle><i class="ion ion-ios-more"></i></button>
+                      <div ngbDropdownMenu [class.dropdown-menu-right]="!isRTL">
+                        <a class="dropdown-item" href="javascript:void(0)">Edit</a>
+                        <a class="dropdown-item" href="javascript:void(0)">Remove</a>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+            <hr class="m-0" *ngIf="i !== (projectData.taskSections.length - 1)">
+          </div>
+
+          <div class="card-footer py-3">
+            <button type="button" class="btn btn-primary"><i class="ion ion-md-add"></i>&nbsp; Add task</button>&nbsp;
+            <button type="button" class="btn btn-default md-btn-flat"><i class="ion ion-md-close"></i>&nbsp; Clear</button>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Activity">
+        <ng-template ngbTabContent>
+          <div class="card-body">
+
+            <div *ngFor="let activity of projectData.activities" class="media pb-1 mb-3">
+              <div class="ui-feed-icon-container">
+                <span *ngIf="activity.type === 'new_task'" class="ui-icon ui-feed-icon ion ion-md-add bg-primary text-white"></span>
+                <span *ngIf="activity.type === 'pushed_commit'" class="ui-icon ui-feed-icon ion ion-md-code bg-warning text-dark"></span>
+                <span *ngIf="activity.type === 'completed_task'" class="ui-icon ui-feed-icon ion ion-md-checkmark bg-success text-white"></span>
+                <span *ngIf="activity.type === 'new_participant'" class="ui-icon ui-feed-icon ion ion-md-contact bg-info text-white"></span>
+
+                <img [src]="'assets/img/avatars/' + activity.user.avatar" class="ui-w-40 rounded-circle" alt>
+              </div>
+              <div class="media-body align-self-center ml-3">
+                <div *ngIf="activity.type === 'new_task'"><a href="javascript:void(0)">{{activity.user.name}}</a> added new task <strong>{{activity.data.taskTitle}}</strong></div>
+                <div *ngIf="activity.type === 'pushed_commit'"><a href="javascript:void(0)">{{activity.user.name}}</a> pushed commit <strong>#{{activity.data.commitId}}</strong></div>
+                <div *ngIf="activity.type === 'completed_task'"><a href="javascript:void(0)">{{activity.user.name}}</a> completed task <strong>{{activity.data.taskTitle}}</strong></div>
+                <div *ngIf="activity.type === 'new_participant'"><a href="javascript:void(0)">{{activity.user.name}}</a> assigned new participant <a href="javascript:void(0)"><strong>{{activity.data.userName}}</strong></a></div>
+
+                <div class="text-muted small">{{activity.date}} ago</div>
+              </div>
+            </div>
+
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Zones" *ngIf="appService.isRole('zones', 'read')">
+        <ng-template ngbTabContent>
+          <div class="card-body">
+            <div class="clients-content clients-scroll">
+
+              <!-- Header -->
+              <h4 class="d-flex flex-wrap justify-content-between align-items-center font-weight-bold pt-2 mb-4">
+                <div class="mb-2">Zones</div>
+                <div class="mb-2" style="" *ngIf="appService.isRole('zones', 'create')">
+                  <button class="btn btn-primary" (click)="open(topModal, { windowClass: 'modal-top modal-lg' })">+ Create Zone</button>
+                </div>
+              </h4>
+              <!-- / Header -->
+              <!-- Modal template -->
+              <ng-template #topModal let-c="close" let-d="dismiss" *ngIf="appService.isRole('zones', 'create')">
+                <div class="modal-header">
+                  <h5 class="modal-title">
+                    Create <span class="font-weight-light">Zone</span><br>
+                  </h5>
+                  <button type="button" class="close" (click)="d('Cross click')">&times;</button>
+                </div>
+                <form #zoneForm="ngForm">
+                <div class="modal-body">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="" class="form-label">Name</label>
+                          <input type="text" class="form-control" [(ngModel)]="form.name" required name="name" #name="ngModel" placeholder="Name">
+                          <div *ngIf="!name.value && name.touched" class="form-error">name is required</div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="" class="form-label">Reservoir</label>
+                          <select class="custom-select" [(ngModel)]="form.reservoirId" required name="reservoirId" #reservoirId="ngModel">
+                            <option value="">- Select Reservoir -</option>
+                            <option *ngFor="let r of reservoirs" value="{{r.id}}">{{r.name}}</option>
+                          </select>
+                          <div *ngIf="!reservoirId.value && reservoirId.touched" class="form-error">reservoir is required</div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group" style="margin-top: 15px">
+                          <label class="custom-control custom-checkbox">
+                            <input type="checkbox" [(ngModel)]="form.isGrowing" name="isGrowing" class="custom-control-input">
+                            <span class="custom-control-label"> Is Growing ?</span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group" *ngIf="form.isGrowing">
+                          <label for="" class="form-label">Growing Medium</label>
+                          <select [(ngModel)]="form.growingMedium" required name="growingMedium" (change)="checkGM()" class="custom-select">
+                            <option value="">- Select Growing Medium -</option>
+                            <option *ngFor="let r of growingMediums" value="{{r}}">{{r}}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6" *ngIf="holes && form.isGrowing">
+                        <div class="form-group">
+                          <label for="" class="form-label">Total {{form.growingMedium}}s</label>
+                          <input type="number" *ngIf="form.growingMedium === 'NFT Channel'" [(ngModel)]="form.boards" name="boards" placeholder="Total {{form.growingMedium}}s" class="form-control">
+                          <select *ngIf="form.growingMedium === 'DFT Board'"  [(ngModel)]="form.boards" name="boards" class="custom-select">
+                            <option value="">- Select Total -</option>
+                            <option value="9">9</option>
+                            <option value="18">18</option>
+                            <option value="32">32</option>
+                            <option value="72">72</option>
+                            <option value="276">276</option>
+                            <option value="288">288</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6" *ngIf="holes && form.isGrowing">
+                        <div class="form-group">
+                          <label for="" class="form-label">Holes / {{form.growingMedium}}</label>
+                          <input type="number" [(ngModel)]="form.holes" name="holes" placeholder="Holes / {{form.growingMedium}}s" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="" class="form-label">Area (Max: {{remainingArea}})</label>
+                          <input type="number" [(ngModel)]="form.area_total" required name="area_total" #area_total="ngModel" placeholder="Area" class="form-control" max="{{remainingArea}}" min="1">
+                        </div>
+                        <div *ngIf="!area_total.value && area_total.touched" class="form-error">area is required</div>
+                        <div *ngIf="areamaxerror"> {{ area_total.validity }}Please enter a value between 1 and {{remainingArea}}</div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="" class="form-label">Unit</label>
+                          <input type="text" [(ngModel)]="form.unit" name="unit" disabled placeholder="Area" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="" class="form-label">Image</label>
+                          <input type="file" (change)="selectFile($event)" [(ngModel)]="form.image" name="image" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" (click)="c('Close click')">Close</button>
+                  <button type="button" class="btn btn-primary" (click)="createZoneCheck(zoneForm);c('Close click')" [disabled]="zoneForm.form.invalid">Save</button>
+                </div>
+                </form>
+              </ng-template>
+
+
+              <!-- Clients list -->
+              <div class="table-responsive ui-bordered">
+                <table class="clients-table table table-hover m-0">
+                  <tbody>
+
+                  <tr *ngFor="let z of zones" [ngClass]="{'bg-light': selected === z && sideboxOpened}" (click)="selectClient(z)">
+                    <td class="align-middle py-3">
+                      <div class="media align-items-center">
+                        <img [src]="url + '/' + z.image" style="width: 50px !important;height: 50px" class="d-block ui-w-40 rounded-circle" alt="">
+                        <div class="media-body flex-basis-auto pl-3">
+                          <div>{{z.name}}</div>
+                          <div class="text-muted small">{{z.area_total}} {{z.area.unit}}</div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="align-middle py-3">
+                      <div *ngIf="z.isGrowing">
+                        <div><b>{{z.growingMethod}}</b></div>
+                        <div *ngIf="z.growingMethod === 'NFT Channel'">
+                          Total: {{z.boards}}, Holes per Channel: {{z.holes}}
+                        </div>
+                        <div *ngIf="z.growingMethod === 'DFT Board'">
+                          Total: {{z.boards}}, Holes per Board: {{z.holes}}
+                        </div>
+                      </div>
+                      <div *ngIf="!z.isGrowing">
+                        <span class="badge badge-warning">Not Growing</span>
+                      </div>
+                    </td>
+                    <td class="align-middle py-3">
+                      <div><b>Reservoir:</b></div>
+                      <div>{{z.reservoir.name}}</div>
+                    </td>
+                    <td class="align-middle py-3">
+                      <span class="badge badge-success" *ngIf="z.isActive">Active</span>
+                      <span class="badge badge-warning" *ngIf="!z.isActive">Deactivated</span>
+                    </td>
+                  </tr>
+
+                  </tbody>
+                </table>
+              </div>
+              <!-- / Clients list -->
+
+            </div><!-- / .clients-content -->
+
+          </div>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+
+  </div>
+  <div class="col-md-4 col-xl-3">
+    <!--Image-->
+    <div class="card mb-4" *ngIf="area?.image">
+      <h6 class="card-header with-elements">
+        <span class="card-header-title">Image</span>
+      </h6>
+      <div>
+        <img [src]="url + '/' + area?.image" style="width: 100%" alt="">
+      </div>
+    </div>
+    <!-- Area details -->
+    <div class="card mb-4">
+      <h6 class="card-header">Area details</h6>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div class="text-muted">Name</div>
+          <div><a href="javascript:void(0)">{{area?.name}}</a></div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div class="text-muted">Created by</div>
+          <div><a href="javascript:void(0)">{{area?.user.fullname}}</a></div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div class="text-muted">Created at</div>
+          <div>{{area?.createdAt | date: 'mediumDate' }}</div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div class="text-muted">Last update</div>
+          <div>{{area?.updatedAt | date: 'mediumDate' }}</div>
+        </li>
+        <!--<li class="list-group-item d-flex justify-content-between align-items-center">
+          <div class="text-muted">Deadline</div>
+          <div><strong>{{projectData.deadline}}</strong></div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div class="text-muted">Priority</div>
+          <div class="btn-group" ngbDropdown [placement]="!isRTL ? 'bottom-right' : 'bottom-left'">
+            <button type="button" class="btn btn-xs md-btn-flat" [ngClass]="priorityDropdownVariant(projectData.priority)" ngbDropdownToggle>
+              <span *ngIf="projectData.priority === 1">High</span>
+              <span *ngIf="projectData.priority === 2">Medium</span>
+              <span *ngIf="projectData.priority === 3">Low</span>
+            </button>
+            <div ngbDropdownMenu [class.dropdown-menu-right]="!isRTL">
+              <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{active: projectData.priority === 1}">High</a>
+              <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{active: projectData.priority === 2}">Medium</a>
+              <a class="dropdown-item" href="javascript:void(0)" [ngClass]="{active: projectData.priority === 3}">Low</a>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div class="text-muted">Hour rate</div>
+          <div>${{projectData.hourRate}}/h</div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div class="text-muted">Total hours</div>
+          <div>{{projectData.hours}}</div>
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div class="text-muted">Total cost</div>
+          <div><strong>${{projectData.hourRate * projectData.hours}}</strong></div>
+        </li>
+        <li class="list-group-item">
+          <div class="text-muted small">Tags</div>
+          <div class="d-flex flex-wrap">
+            <div *ngFor="let tag of projectData.tags" class="badge badge-default mt-1 mr-1">{{tag}}</div>
+          </div>
+        </li>-->
+      </ul>
+    </div>
+
+
+  </div>
+</div>

@@ -9,7 +9,7 @@ import {AppService} from '../../app.service';
   selector: 'app-mat-list',
   templateUrl: './mat-list.component.html',
   styleUrls: [
-      '../../../vendor/libs/ngx-image-gallery/ngx-image-gallery.scss','./mat-list.component.scss']
+      '../../../vendor/libs/ngx-image-gallery/ngx-image-gallery.scss', './mat-list.component.scss']
 })
 export class MatListComponent implements OnInit {
     @ViewChild(NgxImageGalleryComponent) ngxImageGallery: NgxImageGalleryComponent;
@@ -31,7 +31,7 @@ export class MatListComponent implements OnInit {
     public url = environment.baseUrl;
     constructor(
       private matSrv: MaterialService,
-      private appSrv: AppService
+      public appSrv: AppService
   ) {
         this.appSrv.pageTitle = 'Materials';
     }

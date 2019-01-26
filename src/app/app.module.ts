@@ -42,6 +42,9 @@ import { MatEditComponent } from './material/mat-edit/mat-edit.component';
 import {QRCodeModule} from 'angularx-qrcode';
 import {NgxImageGalleryModule} from 'ngx-image-gallery';
 import { ReversePipe } from './_pipes/reverse.pipe';
+import { AreaListComponent } from './area/area-list/area-list.component';
+import { AreaDetailComponent } from './area/area-detail/area-detail.component';
+import {SortablejsModule} from 'angular-sortablejs';
 
 // *******************************************************************************
 //
@@ -67,7 +70,9 @@ import { ReversePipe } from './_pipes/reverse.pipe';
         MatListComponent,
         MatCreateComponent,
         MatEditComponent,
-        ReversePipe
+        ReversePipe,
+        AreaListComponent,
+        AreaDetailComponent,
     ],
 
     imports: [
@@ -78,6 +83,7 @@ import { ReversePipe } from './_pipes/reverse.pipe';
         ReactiveFormsModule,
         QRCodeModule,
         NgxImageGalleryModule,
+        SortablejsModule,
         // App
         AppRoutingModule,
         LayoutModule,

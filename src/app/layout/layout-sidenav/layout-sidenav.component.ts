@@ -19,7 +19,7 @@ export class LayoutSidenavComponent implements AfterViewInit {
 
   public forms;
   public form = '';
-  constructor(private router: Router, private appService: AppService, private layoutService: LayoutService, private formSrv: FormService) {
+  constructor(private router: Router, public appService: AppService, private layoutService: LayoutService, private formSrv: FormService) {
     // Set host classes
     this.hostClassVertical = this.orientation !== 'horizontal';
     this.hostClassHorizontal = !this.hostClassVertical;
