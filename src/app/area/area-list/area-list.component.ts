@@ -26,7 +26,7 @@ export class AreaListComponent implements OnInit {
     constructor(
       private areaSrv: AreaService,
       private router: Router,
-      private appSrv: AppService
+      public appSrv: AppService
   ) { }
 
   ngOnInit() {

@@ -14,14 +14,14 @@ import {ZoneService} from '../../_services/zone.service';
 })
 export class AreaDetailComponent implements OnInit {
   private id;
-  private area: any;
+  public area: any;
   public url = environment.baseUrl;
     public form = {
         name: '',
         reservoirId: '',
         growingMedium: '',
-        boards: '',
-        holes: '',
+        boards: 0,
+        holes: 0,
         area_total: '',
         image: '',
         unit: '',
@@ -197,7 +197,7 @@ export class AreaDetailComponent implements OnInit {
   constructor(
       private ar: ActivatedRoute,
       private areaSrv: AreaService,
-      private appService: AppService,
+      public appService: AppService,
       private modalService: NgbModal,
       private resSrv: ReservoirService,
       private zoneSrv: ZoneService
@@ -287,8 +287,8 @@ export class AreaDetailComponent implements OnInit {
         this.form.name = '';
         this.form.reservoirId = '';
         this.form.growingMedium = '';
-        this.form.boards = '';
-        this.form.holes = '';
+        this.form.boards = 0;
+        this.form.holes = 0;
         this.form.area_total = '';
         this.form.unit = '';
         this.form.isActive = true;
